@@ -1,0 +1,40 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+<h2>Lista Filmów</h2>
+
+<form method="get" action="">
+    <input type="text" name="q" placeholder="Szukaj po tytule" value="{{ request.GET.q }}">
+    <input type="text" name="director" placeholder="Szukaj po reżyserze" value="{{ request.GET.director }}">
+    <input type="text" name="genre" placeholder="Szukaj po gatunku" value="{{ request.GET.genre }}">
+
+    <select name="sort">
+        <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>Sortuj po tytule</option>
+        <option value="director" {% if request.GET.sort == 'director' %}selected{% endif %}>Sortuj po reżyserze</option>
+        <option value="rating" {% if request.GET.sort == 'rating' %}selected{% endif %}>Sortuj po ocenie</option>
+        <option value="genre" {% if request.GET.sort == 'genre' %}selected{% endif %}>Sortuj po gatunku</option>
+    </select>
+
+    <button type="submit">Filtruj</button>
+</form>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'movie_create' %}">Dodaj film</a> |
+    <a href="{% url 'logout' %}">Wyloguj</a>
+{% else %}
+    <a href="{% url 'login' %}">Zaloguj</a> |
+    <a href="{% url 'register' %}">Zarejestruj</a>
+{% endif %}
+
+<ul>
+    {% for movie in movies %}
+        <li>
+            <strong>{{ movie.title }}</strong> | Reżyser: {{ movie.director }} | Gatunek: {{ movie.genre }} | Ocena: {{ movie.rating }}
+            {% if user.is_authenticated %}
+                (<a href="{% url 'movie_edit' movie.pk %}">Edytuj</a>)
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
