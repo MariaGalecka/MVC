@@ -33,8 +33,8 @@ Aplikacja internetowa zbudowana w Django, która umożliwia użytkownikowi zarz�
 
 1. **Sklonuj repozytorium lub pobierz ZIP:**
 
-git clone https://github.com/MariaGalecka/MVC.git
-cd MVC/projekt/movie_catalog
+- git clone https://github.com/MariaGalecka/MVC.git
+- cd MVC/projekt/movie
 
 2. **(Opcjonalnie) Utwórz i aktywuj środowisko wirtualne:**
 python3 -m venv venv
